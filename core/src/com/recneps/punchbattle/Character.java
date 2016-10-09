@@ -23,6 +23,7 @@ public class Character {
     Sprite sprite;
 
     boolean isMoving;
+    boolean touchingPlatform;
     float moveToX;
     float moveToY;
 
@@ -52,14 +53,21 @@ public class Character {
     }
 
     private void instantiate(){
+        isMoving = false;
+        touchingPlatform = false;
+
         BodyDef bodydef = new BodyDef();
         bodydef.type = BodyDef.BodyType.DynamicBody;
 
         //1 to 1 dimensions, for every pixel
+
+        //TODO: remove hardcoding of position to middle, deal with player placement
         bodydef.position.set((x + width) / Game.PIXELS_TO_METERS, (y + height) / Game.PIXELS_TO_METERS);
+
 
         Body body = Game.world.createBody(bodydef);
         body.setFixedRotation(true);
+        body.setUserData("mainCharacter");
         PolygonShape shape = new PolygonShape();
         shape.setAsBox((width)/Game.PIXELS_TO_METERS, (height)/Game.PIXELS_TO_METERS);
 
@@ -77,8 +85,10 @@ public class Character {
     }
 
     public void jump(){
-        float impulse = body.getMass() * 5;
-        body.applyLinearImpulse(new Vector2(0, impulse), body.getWorldCenter(), true);
+        if(touchingPlatform == true) {
+            float impulse = body.getMass() * 5;
+            body.applyLinearImpulse(new Vector2(0, impulse), body.getWorldCenter(), true);
+        }
     }
 
     public void move(float screenX, float screenY){

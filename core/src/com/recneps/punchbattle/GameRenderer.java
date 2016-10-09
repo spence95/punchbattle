@@ -33,9 +33,7 @@ public class GameRenderer {
     }
 
     private void renderGround(SpriteBatch batch, Game game){
-       // game.ground.sprite.draw(batch);
-//        batch.draw(game.ground.sprite, game.ground.sprite.getX() - (game.ground.width * Game.PIXELS_TO_METERS)/2, game.ground.sprite.getY() - (game.ground.height * Game.PIXELS_TO_METERS)/2,
-//                game.ground.width * Game.PIXELS_TO_METERS, game.ground.height * Game.PIXELS_TO_METERS);
-        batch.draw(game.ground.sprite, game.ground.x + game.ground.width/2, game.ground.y, game.ground.width * Game.PIXELS_TO_METERS, game.ground.height);
+        //texture, x, y, width, height
+        batch.draw(game.ground.sprite, game.ground.x - ((game.ground.width * Game.PIXELS_TO_METERS)/2), game.ground.y - ((game.ground.height * Game.PIXELS_TO_METERS)/2), game.ground.width * Game.PIXELS_TO_METERS, game.ground.height);
     }
 }

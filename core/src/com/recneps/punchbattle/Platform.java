@@ -18,7 +18,7 @@ public class Platform {
     float y;
     Body body;
 
-    public Platform(Sprite sprite, float width, float height, float x, float y) {
+    public Platform(Sprite sprite, float width, float height, float x, float y, String userData) {
         this.sprite = sprite;
 
         this.width = width;
@@ -29,13 +29,14 @@ public class Platform {
         sprite.setPosition(x, y);
         sprite.setSize(width, height);
 
-        instantiate();
+        instantiate(x, y, userData);
     }
 
-    private void instantiate(){
+    private void instantiate(float x, float y, String userData){
         BodyDef bodyDef2 = new BodyDef();
         bodyDef2.type = BodyDef.BodyType.StaticBody;
-        bodyDef2.position.set(0,0);
+        bodyDef2.position.set(x,y);
+
         FixtureDef fixtureDef2 = new FixtureDef();
 
         EdgeShape edgeShape = new EdgeShape();
@@ -46,6 +47,7 @@ public class Platform {
 
         body = Game.world.createBody(bodyDef2);
         body.createFixture(fixtureDef2);
+        body.setUserData(userData);
 
         edgeShape.dispose();
     }

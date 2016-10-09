@@ -37,12 +37,12 @@ public class Game {
         boolean doSleep = true;
         world = new World(new Vector2(0, gravity), doSleep);
 
+        world.setContactListener(new ContactListenerHelper(this));
 
+        float playerStartingX = 0;
+        float playerStartingY = 0;
 
-//        createPlayer(spritesHelper, -256, -256);
-//        createPlayer(spritesHelper, 256, 2048);
-        createPlayer(spritesHelper, 0, 0);
-//        createPlayer(spritesHelper, -256, 25000);
+        createPlayer(spritesHelper, playerStartingX, playerStartingY);
         createGround(spritesHelper);
 
         debugRenderer = new Box2DDebugRenderer();
@@ -67,8 +67,8 @@ public class Game {
     }
 
     public void createGround(SpritesHelper spritesHelper){
-        ground = new Platform(spritesHelper.getNewGroundSprite(),Gdx.graphics.getWidth()*10/PIXELS_TO_METERS,
-                Gdx.graphics.getHeight()/PIXELS_TO_METERS- 50/PIXELS_TO_METERS, 0, 0);
+        ground = new Platform(spritesHelper.getNewGroundSprite(),(Gdx.graphics.getWidth()*10)/PIXELS_TO_METERS,
+                Gdx.graphics.getHeight()/PIXELS_TO_METERS, 0, 0, "ground");
     }
 
     public void swipedUp(){
